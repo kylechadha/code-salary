@@ -3,7 +3,7 @@ package app
 import (
 	"net/http"
 
-	"gopkg.in/mgo.v2/bson"
+	"github.com/kylechadha/code-salary/models"
 )
 
 type Ioc struct {
@@ -18,7 +18,7 @@ type IConfigService interface {
 
 type IDatabaseService interface {
 	Create(collection string, data interface{}) error
-	Find(collection string, oId bson.ObjectId, document interface{}) (interface{}, error)
+	Find(id int) (models.SalaryData, error)
 	FindAll(collection string) ([]interface{}, error)
 }
 

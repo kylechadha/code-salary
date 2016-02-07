@@ -11,6 +11,9 @@ import (
 	"github.com/codegangsta/negroni"
 )
 
+// To Dos...
+// - Figure out logging story
+
 func main() {
 
 	// Config

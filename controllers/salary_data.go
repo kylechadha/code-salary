@@ -2,13 +2,11 @@ package controllers
 
 import (
 	"encoding/json"
-	"errors"
 	"net/http"
+	"strconv"
 
 	"github.com/gorilla/mux"
 	"github.com/kylechadha/code-salary/app"
-	"github.com/kylechadha/code-salary/models"
-	"gopkg.in/mgo.v2/bson"
 )
 
 // SalaryData Controller type.
@@ -25,18 +23,18 @@ func NewSalaryDataController(app *app.Ioc) *salaryDataController {
 // SalaryDataCreate handler.
 func (c *salaryDataController) SalaryDataCreate(w http.ResponseWriter, r *http.Request) (error, int) {
 
-	// Create a new SalaryData struct and set the ObjectId.
-	salaryData := models.SalaryData{}
-	salaryData.Id = bson.NewObjectId()
+	// // Create a new SalaryData struct and set the ObjectId.
+	// salaryData := models.SalaryData{}
+	// salaryData.Id = bson.NewObjectId()
 
-	// Decode the JSON onto the struct.
-	json.NewDecoder(r.Body).Decode(&salaryData)
+	// // Decode the JSON onto the struct.
+	// json.NewDecoder(r.Body).Decode(&salaryData)
 
-	// Create the SalaryData via the Database Service.
-	err := c.databaseService.Create("salaryData", salaryData)
-	if err != nil {
-		return err, http.StatusInternalServerError
-	}
+	// // Create the SalaryData via the Database Service.
+	// err := c.databaseService.Create("salaryData", salaryData)
+	// if err != nil {
+	// 	return err, http.StatusInternalServerError
+	// }
 
 	return nil, http.StatusCreated
 }
@@ -45,17 +43,15 @@ func (c *salaryDataController) SalaryDataFind(w http.ResponseWriter, r *http.Req
 
 	// Get the salaryData ID from the params.
 	vars := mux.Vars(r)
-	salaryDataId := vars["id"]
-
-	// Verify the ID is a valid ObjectId.
-	if !bson.IsObjectIdHex(salaryDataId) {
-		return errors.New("Invalid ID format."), http.StatusInternalServerError
+	salaryDataId, err := strconv.Atoi(vars["id"])
+	if err != nil {
+		return err, http.StatusInternalServerError
 	}
 
 	// Retrieve the document.
-	salaryDataOId := bson.ObjectIdHex(salaryDataId)
-	salaryData, err := c.databaseService.Find("salaryData", salaryDataOId, models.SalaryData{})
+	salaryData, err := c.databaseService.Find(salaryDataId)
 	if err != nil {
+		// ** Need to check that error is what we see when it can't find the record
 		return err, http.StatusNotFound
 	}
 
@@ -74,21 +70,21 @@ func (c *salaryDataController) SalaryDataFind(w http.ResponseWriter, r *http.Req
 
 func (c *salaryDataController) SalaryDataFindAll(w http.ResponseWriter, r *http.Request) (error, int) {
 
-	// Retrieve all documents in the salaryData collection.
-	salaryData, err := c.databaseService.FindAll("salaryData")
-	if err != nil {
-		return err, http.StatusNotFound
-	}
+	// // Retrieve all documents in the salaryData collection.
+	// salaryData, err := c.databaseService.FindAll("salaryData")
+	// if err != nil {
+	// 	return err, http.StatusNotFound
+	// }
 
-	// Marshal the documents as JSON.
-	json, err := json.Marshal(salaryData)
-	if err != nil {
-		return err, http.StatusInternalServerError
-	}
+	// // Marshal the documents as JSON.
+	// json, err := json.Marshal(salaryData)
+	// if err != nil {
+	// 	return err, http.StatusInternalServerError
+	// }
 
-	// Write the JSON to the response.
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(json)
+	// // Write the JSON to the response.
+	// w.Header().Set("Content-Type", "application/json")
+	// w.Write(json)
 
 	return nil, http.StatusOK
 }
