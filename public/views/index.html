@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+
+  <!-- Meta & Title -->
+  <meta charset="UTF-8">
+  <base href="/">
+  <title>Omnia: What we do in life, echoes in eternity.</title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="styles/master.css">
+
+</head>
+
+<body ng-app="omniaApp">
+
+  Helloooo world.
+
+  <a class="btn btn-default" href="/users" role="button">Register!</a>
+
+  <!-- Angular Views -->
+  <div class="container-fluid">
+    <div ng-view></div>
+  </div>
+    
+
+  <!-- Angular Dependencies -->
+  <script src="libs/angular/angular.min.js"></script>
+  <script src="libs/angular-route/angular-route.min.js"></script>
+
+  <!-- App Config & Routes -->
+  <script src="scripts/app.js"></script>
+  <script src="scripts/config/routes.js"></script>
+
+  <!-- Controllers -->
+  <script src="scripts/controllers/UserController.js"></script>
+
+  <!-- Services & Factories -->
+  <!-- <script src="scripts/factories/postFactory.js"></script> -->
+
+  <!-- Live Reload -->
+  <script src="//localhost:35729/livereload.js"></script>
+</body>
+
+</html>

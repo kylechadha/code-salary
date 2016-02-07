@@ -1,0 +1,9 @@
+{
+  "name": "omnia-app",
+  "version": "1.0.0",
+  "dependencies": {
+    "angular": "~1.4.5",
+    "angular-route": "~1.4.5",
+    "bootstrap": "~3.3.5"
+  }
+}
