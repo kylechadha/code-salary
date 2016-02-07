@@ -7,6 +7,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/kylechadha/code-salary/app"
+	"github.com/kylechadha/code-salary/models"
 )
 
 // SalaryData Controller type.
@@ -23,18 +24,17 @@ func NewSalaryDataController(app *app.Ioc) *salaryDataController {
 // SalaryDataCreate handler.
 func (c *salaryDataController) SalaryDataCreate(w http.ResponseWriter, r *http.Request) (error, int) {
 
-	// // Create a new SalaryData struct and set the ObjectId.
-	// salaryData := models.SalaryData{}
-	// salaryData.Id = bson.NewObjectId()
+	// Create a new SalaryData struct and set the ObjectId.
+	salaryData := models.SalaryData{}
 
-	// // Decode the JSON onto the struct.
-	// json.NewDecoder(r.Body).Decode(&salaryData)
+	// Decode the JSON onto the struct.
+	json.NewDecoder(r.Body).Decode(&salaryData)
 
-	// // Create the SalaryData via the Database Service.
-	// err := c.databaseService.Create("salaryData", salaryData)
-	// if err != nil {
-	// 	return err, http.StatusInternalServerError
-	// }
+	// Create the SalaryData via the Database Service.
+	err := c.databaseService.Create(salaryData)
+	if err != nil {
+		return err, http.StatusInternalServerError
+	}
 
 	return nil, http.StatusCreated
 }

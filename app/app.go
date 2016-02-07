@@ -17,7 +17,7 @@ type IConfigService interface {
 }
 
 type IDatabaseService interface {
-	Create(collection string, data interface{}) error
+	Create(data models.SalaryData) error
 	Find(id int) (models.SalaryData, error)
 	FindAll(collection string) ([]interface{}, error)
 }
