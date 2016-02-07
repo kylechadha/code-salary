@@ -7,9 +7,9 @@ import (
 )
 
 type Ioc struct {
-	ConfigService   IConfigService
-	DatabaseService IDatabaseService
-	DaysController  IDaysController
+	ConfigService        IConfigService
+	DatabaseService      IDatabaseService
+	SalaryDataController ISalaryDataController
 }
 
 type IConfigService interface {
@@ -22,8 +22,8 @@ type IDatabaseService interface {
 	FindAll(collection string) ([]interface{}, error)
 }
 
-type IDaysController interface {
-	DaysCreate(w http.ResponseWriter, r *http.Request) (error, int)
-	DaysFind(w http.ResponseWriter, r *http.Request) (error, int)
-	DaysFindAll(w http.ResponseWriter, r *http.Request) (error, int)
+type ISalaryDataController interface {
+	SalaryDataCreate(w http.ResponseWriter, r *http.Request) (error, int)
+	SalaryDataFind(w http.ResponseWriter, r *http.Request) (error, int)
+	SalaryDataFindAll(w http.ResponseWriter, r *http.Request) (error, int)
 }

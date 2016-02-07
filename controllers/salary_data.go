@@ -11,19 +11,19 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-// Days Controller type.
-type daysController struct {
+// SalaryData Controller type.
+type salaryDataController struct {
 	databaseService app.IDatabaseService
 }
 
-// Days Controller constructor function.
-func NewDaysController(app *app.Ioc) *daysController {
-	return &daysController{app.DatabaseService}
+// SalaryData Controller constructor function.
+func NewSalaryDataController(app *app.Ioc) *salaryDataController {
+	return &salaryDataController{app.DatabaseService}
 }
 
 // curl -XPOST -H 'Content-Type: application/json' -d '{"dayOfTheWeek": "Saturday", "dayOfTheWeekType": "Weekend", "successfulWakeUp": true, "morningWork": true, "morningWorkType": "omnia app", "workedOut": true, "workedOutType": "swam", "plannedNextDay": true}' http://localhost:3000/api/day
 // DayCreate handler.
-func (c *daysController) DaysCreate(w http.ResponseWriter, r *http.Request) (error, int) {
+func (c *salaryDataController) SalaryDataCreate(w http.ResponseWriter, r *http.Request) (error, int) {
 
 	// Create a new Day struct and set the ObjectId.
 	day := models.Day{}
@@ -33,7 +33,7 @@ func (c *daysController) DaysCreate(w http.ResponseWriter, r *http.Request) (err
 	json.NewDecoder(r.Body).Decode(&day)
 
 	// Create the Day via the Database Service.
-	err := c.databaseService.Create("days", day)
+	err := c.databaseService.Create("salaryData", day)
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
@@ -41,7 +41,7 @@ func (c *daysController) DaysCreate(w http.ResponseWriter, r *http.Request) (err
 	return nil, http.StatusCreated
 }
 
-func (c *daysController) DaysFind(w http.ResponseWriter, r *http.Request) (error, int) {
+func (c *salaryDataController) SalaryDataFind(w http.ResponseWriter, r *http.Request) (error, int) {
 
 	// Get the day ID from the params.
 	vars := mux.Vars(r)
@@ -54,7 +54,7 @@ func (c *daysController) DaysFind(w http.ResponseWriter, r *http.Request) (error
 
 	// Retrieve the document.
 	dayOId := bson.ObjectIdHex(dayId)
-	day, err := c.databaseService.Find("days", dayOId, models.Day{})
+	day, err := c.databaseService.Find("salaryData", dayOId, models.Day{})
 	if err != nil {
 		return err, http.StatusNotFound
 	}
@@ -72,16 +72,16 @@ func (c *daysController) DaysFind(w http.ResponseWriter, r *http.Request) (error
 	return nil, http.StatusOK
 }
 
-func (c *daysController) DaysFindAll(w http.ResponseWriter, r *http.Request) (error, int) {
+func (c *salaryDataController) SalaryDataFindAll(w http.ResponseWriter, r *http.Request) (error, int) {
 
-	// Retrieve all documents in the days collection.
-	days, err := c.databaseService.FindAll("days")
+	// Retrieve all documents in the salaryData collection.
+	salaryData, err := c.databaseService.FindAll("salaryData")
 	if err != nil {
 		return err, http.StatusNotFound
 	}
 
 	// Marshal the documents as JSON.
-	json, err := json.Marshal(days)
+	json, err := json.Marshal(salaryData)
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}

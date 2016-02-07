@@ -27,7 +27,7 @@ func main() {
 	app := app.Ioc{}
 	app.ConfigService = services.NewConfigService()
 	app.DatabaseService = services.NewDatabaseService(&app)
-	app.DaysController = controllers.NewDaysController(&app)
+	app.SalaryDataController = controllers.NewSalaryDataController(&app)
 
 	// Router
 	// ----------------------------
