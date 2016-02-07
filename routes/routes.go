@@ -3,8 +3,8 @@ package routes
 import (
 	"net/http"
 
-	"github.com/kylechadha/omnia-app/app"
-	"github.com/kylechadha/omnia-app/utils"
+	"github.com/kylechadha/code-salary/app"
+	"github.com/kylechadha/code-salary/utils"
 
 	"github.com/gorilla/mux"
 )
@@ -16,9 +16,9 @@ func NewRouter(app *app.Ioc) *mux.Router {
 	// API routes.
 	d := app.SalaryDataController
 	salaryData := router.PathPrefix("/api").Subrouter()
-	salaryData.Handle("/day", utils.AppHandler(d.SalaryDataCreate))
-	salaryData.Handle("/day/{id}/", utils.AppHandler(d.SalaryDataFind))
-	salaryData.Handle("/salaryData/", utils.AppHandler(d.SalaryDataFindAll))
+	salaryData.Handle("/salaryData", utils.AppHandler(d.SalaryDataCreate))   // post
+	salaryData.Handle("/salaryData/", utils.AppHandler(d.SalaryDataFindAll)) // get
+	salaryData.Handle("/salaryData/{id}/", utils.AppHandler(d.SalaryDataFind))
 
 	// Static files.
 	router.PathPrefix("/libs").Handler(utils.RestrictDir(http.FileServer(http.Dir("./public/"))))

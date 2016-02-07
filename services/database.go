@@ -1,65 +1,65 @@
 package services
 
 import (
+	"database/sql"
 	"fmt"
 
-	"github.com/kylechadha/omnia-app/app"
-	"gopkg.in/mgo.v2"
-	"gopkg.in/mgo.v2/bson"
+	"github.com/kylechadha/code-salary/app"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
 // Database Service type.
 type databaseService struct {
-	session *mgo.Session
+	db *sql.DB
 }
 
 // Database Service constructor function.
 func NewDatabaseService(app *app.Ioc) *databaseService {
-	mongoUrl, err := app.ConfigService.GetConfig("mongourl")
+	dbUser, err := app.ConfigService.GetConfig("db_user")
 	if err != nil {
-		fmt.Println("Config file does not include a 'mongourl'.")
+		fmt.Println("Config file does not include a 'db_user'.")
 		panic(err)
 	}
 
-	session, err := mgo.Dial(mongoUrl)
+	dbPassword, err := app.ConfigService.GetConfig("db_password")
 	if err != nil {
-		fmt.Println("Unable to connect to the Mongo DB.")
+		fmt.Println("Config file does not include a 'db_password'.")
 		panic(err)
 	}
 
-	return &databaseService{session}
-}
-
-func (d *databaseService) Create(collection string, document interface{}) error {
-
-	// Write the document to the database.
-	err := d.session.DB("omnia").C(collection).Insert(document)
+	dbName, err := app.ConfigService.GetConfig("db_name")
 	if err != nil {
-		return err
+		fmt.Println("Config file does not include a 'db_name'.")
+		panic(err)
 	}
 
-	return nil
-}
-
-func (d *databaseService) Find(collection string, oId bson.ObjectId, document interface{}) (interface{}, error) {
-
-	// Find the document by ID.
-	err := d.session.DB("omnia").C(collection).FindId(oId).One(&document)
+	db, err := sql.Open("mysql", dbUser+":"+dbPassword+"@/"+dbName)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
+	defer db.Close()
 
-	return document, nil
+	return &databaseService{db: db}
 }
 
-func (d *databaseService) FindAll(collection string) ([]interface{}, error) {
+// func (d *databaseService) Create(collection string, document interface{}) error {
 
-	// Find all documents in the collection.
-	var documents []interface{}
-	err := d.session.DB("omnia").C(collection).Find(bson.M{}).All(&documents)
-	if err != nil {
-		return nil, err
-	}
+// 	// Write the document to the database.
 
-	return documents, nil
-}
+// 	return nil
+// }
+
+// func (d *databaseService) Find(collection string, oId bson.ObjectId, document interface{}) (interface{}, error) {
+
+// 	// Find the document by ID.
+
+// 	return nil, nil
+// }
+
+// func (d *databaseService) FindAll(collection string) ([]interface{}, error) {
+
+// 	// Find all documents in the collection.
+
+// 	return nil, nil
+// }

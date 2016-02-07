@@ -6,8 +6,8 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/kylechadha/omnia-app/app"
-	"github.com/kylechadha/omnia-app/models"
+	"github.com/kylechadha/code-salary/app"
+	"github.com/kylechadha/code-salary/models"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -21,19 +21,19 @@ func NewSalaryDataController(app *app.Ioc) *salaryDataController {
 	return &salaryDataController{app.DatabaseService}
 }
 
-// curl -XPOST -H 'Content-Type: application/json' -d '{"dayOfTheWeek": "Saturday", "dayOfTheWeekType": "Weekend", "successfulWakeUp": true, "morningWork": true, "morningWorkType": "omnia app", "workedOut": true, "workedOutType": "swam", "plannedNextDay": true}' http://localhost:3000/api/day
-// DayCreate handler.
+// curl -XPOST -H 'Content-Type: application/json' -d '{"salaryDataOfTheWeek": "SatursalaryData", "salaryDataOfTheWeekType": "Weekend", "successfulWakeUp": true, "morningWork": true, "morningWorkType": "omnia app", "workedOut": true, "workedOutType": "swam", "plannedNextSalaryData": true}' http://localhost:3000/api/salaryData
+// SalaryDataCreate handler.
 func (c *salaryDataController) SalaryDataCreate(w http.ResponseWriter, r *http.Request) (error, int) {
 
-	// Create a new Day struct and set the ObjectId.
-	day := models.Day{}
-	day.Id = bson.NewObjectId()
+	// Create a new SalaryData struct and set the ObjectId.
+	salaryData := models.SalaryData{}
+	salaryData.Id = bson.NewObjectId()
 
 	// Decode the JSON onto the struct.
-	json.NewDecoder(r.Body).Decode(&day)
+	json.NewDecoder(r.Body).Decode(&salaryData)
 
-	// Create the Day via the Database Service.
-	err := c.databaseService.Create("salaryData", day)
+	// Create the SalaryData via the Database Service.
+	err := c.databaseService.Create("salaryData", salaryData)
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
@@ -43,24 +43,24 @@ func (c *salaryDataController) SalaryDataCreate(w http.ResponseWriter, r *http.R
 
 func (c *salaryDataController) SalaryDataFind(w http.ResponseWriter, r *http.Request) (error, int) {
 
-	// Get the day ID from the params.
+	// Get the salaryData ID from the params.
 	vars := mux.Vars(r)
-	dayId := vars["id"]
+	salaryDataId := vars["id"]
 
 	// Verify the ID is a valid ObjectId.
-	if !bson.IsObjectIdHex(dayId) {
+	if !bson.IsObjectIdHex(salaryDataId) {
 		return errors.New("Invalid ID format."), http.StatusInternalServerError
 	}
 
 	// Retrieve the document.
-	dayOId := bson.ObjectIdHex(dayId)
-	day, err := c.databaseService.Find("salaryData", dayOId, models.Day{})
+	salaryDataOId := bson.ObjectIdHex(salaryDataId)
+	salaryData, err := c.databaseService.Find("salaryData", salaryDataOId, models.SalaryData{})
 	if err != nil {
 		return err, http.StatusNotFound
 	}
 
 	// Marshal the document as JSON.
-	json, err := json.Marshal(day)
+	json, err := json.Marshal(salaryData)
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}

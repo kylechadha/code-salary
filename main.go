@@ -3,10 +3,10 @@ package main
 import (
 	"os"
 
-	"github.com/kylechadha/omnia-app/app"
-	"github.com/kylechadha/omnia-app/controllers"
-	"github.com/kylechadha/omnia-app/routes"
-	"github.com/kylechadha/omnia-app/services"
+	"github.com/kylechadha/code-salary/app"
+	"github.com/kylechadha/code-salary/controllers"
+	"github.com/kylechadha/code-salary/routes"
+	"github.com/kylechadha/code-salary/services"
 
 	"github.com/codegangsta/negroni"
 )
