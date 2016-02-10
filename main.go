@@ -13,6 +13,8 @@ import (
 
 // To Dos...
 // - Figure out logging story
+// - Nix the utils package
+// - Handle db.close() ... on shutdown?
 
 func main() {
 

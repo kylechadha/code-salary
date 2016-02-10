@@ -2,8 +2,10 @@ package controllers
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/gorilla/mux"
 	"github.com/kylechadha/code-salary/app"
@@ -20,12 +22,13 @@ func NewSalaryDataController(app *app.Ioc) *salaryDataController {
 	return &salaryDataController{app.DatabaseService}
 }
 
-// curl -XPOST -H 'Content-Type: application/json' -d '{"salaryDataOfTheWeek": "SatursalaryData", "salaryDataOfTheWeekType": "Weekend", "successfulWakeUp": true, "morningWork": true, "morningWorkType": "omnia app", "workedOut": true, "workedOutType": "swam", "plannedNextSalaryData": true}' http://localhost:3000/api/salaryData
+// curl -XPOST -H 'Content-Type: application/json' -d '{"company": "Google", "city": "New York", "state": "New York", "Country": "USA", "Base": 136000, "Bonus": "20%", "Perks": 20000, "Stack": ["linux", "mysql", "apache", "php"]}' http://localhost:3000/api/salaryData
 // SalaryDataCreate handler.
 func (c *salaryDataController) SalaryDataCreate(w http.ResponseWriter, r *http.Request) (error, int) {
 
-	// Create a new SalaryData struct and set the ObjectId.
+	// Create a new SalaryData struct and set the DateAdded.
 	salaryData := models.SalaryData{}
+	salaryData.DateAdded = time.Now()
 
 	// Decode the JSON onto the struct.
 	json.NewDecoder(r.Body).Decode(&salaryData)
@@ -39,7 +42,9 @@ func (c *salaryDataController) SalaryDataCreate(w http.ResponseWriter, r *http.R
 	return nil, http.StatusCreated
 }
 
+// curl -H "Accept: application/json" http://localhost:3000/api/salaryData/3
 func (c *salaryDataController) SalaryDataFind(w http.ResponseWriter, r *http.Request) (error, int) {
+	log.Println("SalaryDataFind")
 
 	// Get the salaryData ID from the params.
 	vars := mux.Vars(r)
