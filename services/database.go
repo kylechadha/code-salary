@@ -2,8 +2,10 @@ package services
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
 	"log"
+	"regexp"
 	"strings"
 
 	"github.com/kylechadha/code-salary/app"
@@ -129,25 +131,57 @@ func (d *databaseService) Find(id int) (models.SalaryData, error) {
 	return s, err
 }
 
-// Maybe this makes more sense because you'll only want to show a 100
-// func (d *databaseService) FindN(collection string) ([]interface{}, error) {
-// find all (doing join), LIMIT n
+func (d *databaseService) FindN(n int, sort string, asc bool) ([]models.SalaryData, error) {
 
-// Also want to add filters so you can use FindN but sort ascending descending on certain fields...
-// maybe should just add a parameter that selects the field you want to sort on, and the direction
-// ORDER BY field you want to
+	// Set n to be 1000 when no limit is specified.
+	if n == 0 {
+		n = 1000
+	}
 
-func (d *databaseService) FindN(n int, field string, asc bool) ([]models.SalaryData, error) {
+	// Validate the sort field.
+	qFields := map[string]bool{
+		"company":   true,
+		"city":      true,
+		"state":     true,
+		"country":   true,
+		"base":      true,
+		"bonus":     true,
+		"perks":     true,
+		"dateAdded": true,
+	}
+	if ok := qFields[sort]; !ok {
+		sort = "null"
+	}
 
-	rows, err := d.db.Query(`
+	// Just in case there's some sql injection voodoo, let's double check 'sort'.
+	valid, err := regexp.Compile("^[A-Za-z0-9_]+$")
+	if err != nil {
+		return nil, err
+	}
+	if !valid.MatchString(sort) {
+		return nil, errors.New("invalid sort query parameter")
+	}
+
+	// Convert the asc bool to the corresponding string.
+	var ascStr string
+	if asc {
+		ascStr = "ASC"
+	} else {
+		ascStr = "DESC"
+	}
+
+	// Construct the SQL query.
+	query := fmt.Sprintf(`
 		SELECT id, company, city, state, country, base, bonus, perks, date_added, IFNULL(group_concat(DISTINCT s.stack_name SEPARATOR ' '), '')
-		FROM code_salary
 		FROM code_salary AS c
 		INNER JOIN salary_stack AS s
 		WHERE c.id = s.salarydata_id
 		GROUP BY c.id
+		ORDER BY %s %s
 		LIMIT ?
-		`, n)
+		`, sort, ascStr)
+
+	rows, err := d.db.Query(query, n)
 	if err != nil {
 		return nil, err
 	}
@@ -181,27 +215,3 @@ func (d *databaseService) FindN(n int, field string, asc bool) ([]models.SalaryD
 // For Tom:
 // - write these methods
 // - write the tests
-
-// func (d *databaseService) FindAll(collection string) ([]interface{}, error) {
-
-// 	// Find all documents in the collection.
-
-// 	rows, err := d.db.Query("SELECT id, company FROM code_salary WHERE id = ?", id)
-// 	if err != nil {
-// 		return salaryData, err
-// 	}
-// 	defer rows.Close()
-
-// 	for rows.Next() {
-// 		err := rows.Scan(&salaryData)
-// 		if err != nil {
-// 			return salaryData, err
-// 		}
-// 	}
-// 	err = rows.Err()
-// 	if err != nil {
-// 		return salaryData, err
-// 	}
-
-// 	return nil, nil
-// }
