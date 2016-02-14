@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"encoding/json"
-	"log"
 	"net/http"
 	"strconv"
 	"time"
@@ -33,7 +32,7 @@ func (c *salaryDataController) SalaryDataCreate(w http.ResponseWriter, r *http.R
 	// Decode the JSON onto the struct.
 	json.NewDecoder(r.Body).Decode(&salaryData)
 
-	// Create the SalaryData via the Database Service.
+	// Create the item via the DB Service.
 	err := c.databaseService.Create(salaryData)
 	if err != nil {
 		return err, http.StatusInternalServerError
@@ -42,9 +41,8 @@ func (c *salaryDataController) SalaryDataCreate(w http.ResponseWriter, r *http.R
 	return nil, http.StatusCreated
 }
 
-// curl -H "Accept: application/json" http://localhost:3000/api/salaryData/3
+// curl -H "Content-Type: application/json" http://localhost:3000/api/salaryData/3
 func (c *salaryDataController) SalaryDataFind(w http.ResponseWriter, r *http.Request) (error, int) {
-	log.Println("SalaryDataFind")
 
 	// Get the salaryData ID from the params.
 	vars := mux.Vars(r)
@@ -53,7 +51,7 @@ func (c *salaryDataController) SalaryDataFind(w http.ResponseWriter, r *http.Req
 		return err, http.StatusInternalServerError
 	}
 
-	// Retrieve the document.
+	// Retrieve the item from the DB Service.
 	salaryData, err := c.databaseService.Find(salaryDataId)
 	if err != nil {
 		// ** Need to check that error is what we see when it can't find the record
@@ -73,7 +71,7 @@ func (c *salaryDataController) SalaryDataFind(w http.ResponseWriter, r *http.Req
 	return nil, http.StatusOK
 }
 
-func (c *salaryDataController) SalaryDataFindAll(w http.ResponseWriter, r *http.Request) (error, int) {
+func (c *salaryDataController) SalaryDataFindN(w http.ResponseWriter, r *http.Request) (error, int) {
 
 	// // Retrieve all documents in the salaryData collection.
 	// salaryData, err := c.databaseService.FindAll("salaryData")
@@ -93,3 +91,24 @@ func (c *salaryDataController) SalaryDataFindAll(w http.ResponseWriter, r *http.
 
 	return nil, http.StatusOK
 }
+
+// func (c *salaryDataController) SalaryDataFindAll(w http.ResponseWriter, r *http.Request) (error, int) {
+
+// 	// // Retrieve all documents in the salaryData collection.
+// 	// salaryData, err := c.databaseService.FindAll("salaryData")
+// 	// if err != nil {
+// 	// 	return err, http.StatusNotFound
+// 	// }
+
+// 	// // Marshal the documents as JSON.
+// 	// json, err := json.Marshal(salaryData)
+// 	// if err != nil {
+// 	// 	return err, http.StatusInternalServerError
+// 	// }
+
+// 	// // Write the JSON to the response.
+// 	// w.Header().Set("Content-Type", "application/json")
+// 	// w.Write(json)
+
+// 	return nil, http.StatusOK
+// }

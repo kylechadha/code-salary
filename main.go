@@ -15,6 +15,7 @@ import (
 // - Figure out logging story
 // - Nix the utils package
 // - Handle db.close() ... on shutdown?
+// - Add proper comments
 
 func main() {
 

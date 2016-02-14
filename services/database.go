@@ -103,45 +103,105 @@ func (d *databaseService) Create(data models.SalaryData) error {
 
 func (d *databaseService) Find(id int) (models.SalaryData, error) {
 
-	var salaryData models.SalaryData
+	var s models.SalaryData
+	var stack string
 
 	// ** What if instead of doing this off hand here, we prepare a statement in the constructor and this just calls that? Any advantage?
-	// ** Could simplify this with GORP or sqlstruct pkgs... might not be worth the benefit though
-	// `SELECT p.*, f.*
-	// FROM person p
-	// INNER JOIN person_fruit pf
-	// ON pf.person_id = p.id
-	// INNER JOIN fruits f
-	// ON f.fruit_name = pf.fruit_name`
-	// err := d.db.QueryRow("SELECT ... FROM ", id).Scan(&salaryData.Id, &salaryData.Company, &salaryData.City, &salaryData.State, &salaryData.Country, &salaryData.Base, &salaryData.Bonus, &salaryData.Perks, &salaryData.DateAdded)
-	err := d.db.QueryRow("SELECT id, company, city, state, country, base, bonus, perks, date_added FROM code_salary WHERE id = ?", id).Scan(&salaryData.Id, &salaryData.Company, &salaryData.City, &salaryData.State, &salaryData.Country, &salaryData.Base, &salaryData.Bonus, &salaryData.Perks, &salaryData.DateAdded)
+	err := d.db.QueryRow(`
+		SELECT id, company, city, state, country, base, bonus, perks, date_added, IFNULL(group_concat(DISTINCT s.stack_name SEPARATOR ' '), '')
+		FROM code_salary AS c
+		INNER JOIN salary_stack AS s
+		WHERE c.id = s.salarydata_id
+		AND c.id = ?
+		GROUP BY c.id
+		`, id).Scan(&s.Id, &s.Company, &s.City, &s.State, &s.Country, &s.Base, &s.Bonus, &s.Perks, &s.DateAdded, &stack)
 	if err != nil {
-		return salaryData, err
+		return s, err
 	}
 
-	return salaryData, err
+	// Converting stack (string returned from the db join) to a proper
+	// slice to be stored in the models.salaryData type. If we weren't attached
+	// to mysql, this wouldn't have to be so clumsy.
+	if stack != "" {
+		s.Stack = strings.Split(stack, " ")
+	}
+
+	return s, err
 }
 
-func (d *databaseService) FindAll(collection string) ([]interface{}, error) {
+// Maybe this makes more sense because you'll only want to show a 100
+// func (d *databaseService) FindN(collection string) ([]interface{}, error) {
+// find all (doing join), LIMIT n
 
-	// Find all documents in the collection.
+// Also want to add filters so you can use FindN but sort ascending descending on certain fields...
+// maybe should just add a parameter that selects the field you want to sort on, and the direction
+// ORDER BY field you want to
 
-	// rows, err := d.db.Query("SELECT id, company FROM code_salary WHERE id = ?", id)
-	// if err != nil {
-	// 	return salaryData, err
-	// }
-	// defer rows.Close()
+func (d *databaseService) FindN(n int, field string, asc bool) ([]models.SalaryData, error) {
 
-	// for rows.Next() {
-	// 	err := rows.Scan(&salaryData)
-	// 	if err != nil {
-	// 		return salaryData, err
-	// 	}
-	// }
-	// err = rows.Err()
-	// if err != nil {
-	// 	return salaryData, err
-	// }
+	rows, err := d.db.Query(`
+		SELECT id, company, city, state, country, base, bonus, perks, date_added, IFNULL(group_concat(DISTINCT s.stack_name SEPARATOR ' '), '')
+		FROM code_salary
+		FROM code_salary AS c
+		INNER JOIN salary_stack AS s
+		WHERE c.id = s.salarydata_id
+		GROUP BY c.id
+		LIMIT ?
+		`, n)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
 
-	return nil, nil
+	var ss []models.SalaryData
+	for rows.Next() {
+		var s models.SalaryData
+		var stack string
+		err := rows.Scan(&s.Id, &s.Company, &s.City, &s.State, &s.Country, &s.Base, &s.Bonus, &s.Perks, &s.DateAdded, &stack)
+		if err != nil {
+			return nil, err
+		}
+
+		if stack != "" {
+			s.Stack = strings.Split(stack, " ")
+		}
+
+		ss = append(ss, s)
+	}
+	err = rows.Err()
+	if err != nil {
+		return nil, err
+	}
+
+	return ss, nil
 }
+
+// * How / when to add indexes?
+
+// For Tom:
+// - write these methods
+// - write the tests
+
+// func (d *databaseService) FindAll(collection string) ([]interface{}, error) {
+
+// 	// Find all documents in the collection.
+
+// 	rows, err := d.db.Query("SELECT id, company FROM code_salary WHERE id = ?", id)
+// 	if err != nil {
+// 		return salaryData, err
+// 	}
+// 	defer rows.Close()
+
+// 	for rows.Next() {
+// 		err := rows.Scan(&salaryData)
+// 		if err != nil {
+// 			return salaryData, err
+// 		}
+// 	}
+// 	err = rows.Err()
+// 	if err != nil {
+// 		return salaryData, err
+// 	}
+
+// 	return nil, nil
+// }

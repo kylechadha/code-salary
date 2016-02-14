@@ -19,9 +19,9 @@ func NewRouter(app *app.Ioc) *mux.Router {
 	// API routes.
 	d := app.SalaryDataController
 	salaryData := router.PathPrefix("/api").Subrouter()
-	salaryData.Handle("/salaryData/{id}/", utils.AppHandler(d.SalaryDataFind))
-	salaryData.Handle("/salaryData", utils.AppHandler(d.SalaryDataCreate))   // post
-	salaryData.Handle("/salaryData/", utils.AppHandler(d.SalaryDataFindAll)) // get
+	salaryData.Handle("/salaryData/{id}", utils.AppHandler(d.SalaryDataFind))
+	salaryData.Handle("/salaryData", utils.AppHandler(d.SalaryDataFindN)).Methods("GET")
+	salaryData.Handle("/salaryData", utils.AppHandler(d.SalaryDataCreate)).Methods("POST")
 
 	// Static files.
 	router.PathPrefix("/libs").Handler(utils.RestrictDir(http.FileServer(http.Dir("./public/"))))

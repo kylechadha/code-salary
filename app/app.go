@@ -19,11 +19,11 @@ type IConfigService interface {
 type IDatabaseService interface {
 	Create(data models.SalaryData) error
 	Find(id int) (models.SalaryData, error)
-	FindAll(collection string) ([]interface{}, error)
+	FindN(n int, field string, asc bool) ([]models.SalaryData, error)
 }
 
 type ISalaryDataController interface {
 	SalaryDataCreate(w http.ResponseWriter, r *http.Request) (error, int)
 	SalaryDataFind(w http.ResponseWriter, r *http.Request) (error, int)
-	SalaryDataFindAll(w http.ResponseWriter, r *http.Request) (error, int)
+	SalaryDataFindN(w http.ResponseWriter, r *http.Request) (error, int)
 }
