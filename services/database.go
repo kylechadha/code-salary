@@ -15,7 +15,7 @@ import (
 )
 
 // Database Service type.
-// MySQL probably isn't the best DB for our purposes,
+// MySQL probably isn't the best DB for our purposes...
 // but we're going to use it any way as a learning
 // exercise :)
 type databaseService struct {
@@ -24,6 +24,8 @@ type databaseService struct {
 
 // Database Service constructor function.
 func NewDatabaseService(app *app.Ioc) *databaseService {
+
+	// Pull the DB creds from Config.
 	dbUser, err := app.ConfigService.GetConfig("db_user")
 	if err != nil {
 		fmt.Println("Config file does not include a 'db_user'.")
@@ -48,6 +50,7 @@ func NewDatabaseService(app *app.Ioc) *databaseService {
 		log.Fatal(err)
 	}
 
+	// Open the DB (note: not a connection).
 	// 'parseTime=true' is an optional flag for the go-sql-driver,
 	// to add Scan() support for parsing into time.Time.
 	// https://github.com/go-sql-driver/mysql/issues/9
@@ -56,7 +59,7 @@ func NewDatabaseService(app *app.Ioc) *databaseService {
 		log.Fatal(err)
 	}
 
-	// Make sure the database credentials are valid and a connection is possible.
+	// Make sure the DB creds are valid and a connection is possible.
 	err = db.Ping()
 	if err != nil {
 		log.Fatal(err)
@@ -67,28 +70,26 @@ func NewDatabaseService(app *app.Ioc) *databaseService {
 
 func (d *databaseService) Create(data models.SalaryData) error {
 
+	// Insert the general data into table 'code_salary'.
 	result, err := d.db.Exec(`INSERT INTO code_salary (company, city, state, country, base, bonus, perks, date_added) 
 		VALUES (?, ?, ?, ?, ?, ?, ?, ?)`, data.Company, data.City, data.State, data.Country, data.Base, data.Bonus, data.Perks, data.DateAdded)
 	if err != nil {
 		return err
 	}
 
+	// Get the LastInsertId.
 	lastId, err := result.LastInsertId()
 	if err != nil {
 		return err
 	}
 
-	rowCnt, err := result.RowsAffected()
-	if err != nil {
-		return err
-	}
-	log.Printf("TESTING! ID = %d, affected = %d\n", lastId, rowCnt)
-
-	// Note: You could also read the `stack` table in the constructor and create a cache to avoid hitting the DB.
+	// Insert the stack info into 'stack' and 'salary_stack'.
 	for _, elem := range data.Stack {
 		stack := strings.ToLower(elem)
 
-		// I wonder if you can insert multiple values in one query...
+		// Note: Could also read the `stack` table in the constructor and create a cache to avoid hitting the DB here. Maybe a To Do for later.
+		// ** I wonder if you can insert multiple values in one query...
+		// ** Should this also be a transaction as it stands?
 		_, err := d.db.Exec("INSERT IGNORE INTO stack VALUES (?)", stack)
 		if err != nil {
 			return err
@@ -103,12 +104,12 @@ func (d *databaseService) Create(data models.SalaryData) error {
 	return nil
 }
 
+// ** What if instead of building the query here, we prepare a statement in the constructor and this just calls that? Any advantage?
 func (d *databaseService) Find(id int) (models.SalaryData, error) {
 
+	// Hit the DB and Scan in one go.
 	var s models.SalaryData
 	var stack string
-
-	// ** What if instead of doing this off hand here, we prepare a statement in the constructor and this just calls that? Any advantage?
 	err := d.db.QueryRow(`
 		SELECT id, company, city, state, country, base, bonus, perks, date_added, IFNULL(group_concat(DISTINCT s.stack_name SEPARATOR ' '), '')
 		FROM code_salary AS c
@@ -181,12 +182,14 @@ func (d *databaseService) FindN(n int, sort string, asc bool) ([]models.SalaryDa
 		LIMIT ?
 		`, sort, ascStr)
 
+	// Hit the DB.
 	rows, err := d.db.Query(query, n)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
 
+	// Scan the rows and populate the 'ss' slice.
 	var ss []models.SalaryData
 	for rows.Next() {
 		var s models.SalaryData
@@ -211,7 +214,3 @@ func (d *databaseService) FindN(n int, sort string, asc bool) ([]models.SalaryDa
 }
 
 // * How / when to add indexes?
-
-// For Tom:
-// - write these methods
-// - write the tests
