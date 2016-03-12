@@ -24,9 +24,8 @@ func NewRouter(app *app.Ioc) *mux.Router {
 	router.PathPrefix("/libs").Handler(restrictDir(http.FileServer(http.Dir("./public/"))))
 	router.PathPrefix("/scripts").Handler(restrictDir(http.FileServer(http.Dir("./public/"))))
 	router.PathPrefix("/styles").Handler(restrictDir(http.FileServer(http.Dir("./public/"))))
+	router.PathPrefix("/views").Handler(http.FileServer(http.Dir("./public")))
 	router.PathPrefix("/").Handler(http.FileServer(http.Dir("./public/views")))
-
-	// Angular routes...
 
 	return router
 }

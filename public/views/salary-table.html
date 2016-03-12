@@ -1,0 +1,46 @@
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Company</th>
+      <th>Location</th>
+      <th>Stack</th>
+      <th>Base</th>
+      <th>Bonus</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr ng-repeat="salary in salaries">
+        <td>{{ salary.company }}</td>
+        <td>{{ salary.city }}</td>
+        <td>{{ salary.stack }}</td>
+        <td>{{ salary.base }}</td>
+        <td>{{ salary.bonus }}</td>
+      </tr>
+  </tbody>
+</table>
+
+<h4>Add your Information</h4>
+<div id="salary-create" class="row">
+    <div>
+        <form>
+            <div class="form-group form-inline">
+                <input type="text" class="form-control text-center" placeholder="Company" ng-model="formData.company">
+                <input type="text" class="form-control text-center" placeholder="City" ng-model="formData.city">
+                <input type="text" class="form-control text-center" placeholder="Base" ng-model="formData.base">
+                <input type="text" class="form-control text-center" placeholder="Bonus" ng-model="formData.bonus">
+                <br>
+                <label class="checkbox-inline">
+                  <input type="checkbox" id="inlineCheckbox1" value="option1" ng-model="stack[0]"> Ruby on Rails
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" id="inlineCheckbox2" value="option2" ng-model="stack[1]"> Node.js
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" id="inlineCheckbox3" value="option3" ng-model="stack[2]"> Python
+                </label>
+            </div>
+                <button type="submit" class="btn btn-primary" ng-click="createSalary()">Add</button>
+        </form>
+    </div>
+</div>

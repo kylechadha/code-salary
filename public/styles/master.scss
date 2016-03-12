@@ -1,0 +1,23 @@
+// Bootstrap Overrides
+// -----------------------------------
+.navbar-fresh {
+  background-color: skyblue;
+  border-radius: 0px;
+  color: #2a3542;
+  a {
+    color: #2a3542;
+    &:hover {
+      color: black;
+    }
+  }
+}
+
+.navbar-brand {
+  font-weight: 300;
+  line-height: 18px;
+  span {
+    font-size: 22px;
+    vertical-align: middle;
+    margin-bottom: 4px;
+  }
+}

@@ -2,45 +2,48 @@
 <html>
 <head>
 
-  <!-- Meta & Title -->
-  <meta charset="UTF-8">
-  <base href="/">
-  <title>Omnia: What we do in life, echoes in eternity.</title>
+	<!-- Meta & Title -->
+	<meta charset="UTF-8">
+	<base href="/">
+	<title>Coder Salary. How much do your peers make?</title>
 
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="styles/master.css">
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="styles/master.css">
 
 </head>
 
-<body ng-app="omniaApp">
+<body ng-app="coderSalaryApp">
 
-  Helloooo world.
+	<!-- Header -->
+	<nav class="navbar navbar-fresh">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="/"><span class="glyphicon glyphicon-dashboard"></span> Coder Salary</a>
+		</div>
+	</nav>
 
-  <a class="btn btn-default" href="/users" role="button">Register!</a>
+	<!-- Angular Views -->
+	<div class="container-fluid">
+	<div ng-view></div>
+	</div>
+	
 
-  <!-- Angular Views -->
-  <div class="container-fluid">
-    <div ng-view></div>
-  </div>
-    
+	<!-- Angular Dependencies -->
+	<script src="libs/angular/angular.min.js"></script>
+	<script src="libs/angular-route/angular-route.min.js"></script>
 
-  <!-- Angular Dependencies -->
-  <script src="libs/angular/angular.min.js"></script>
-  <script src="libs/angular-route/angular-route.min.js"></script>
+	<!-- App Config & Routes -->
+	<script src="scripts/app.js"></script>
+	<script src="scripts/config/routes.js"></script>
 
-  <!-- App Config & Routes -->
-  <script src="scripts/app.js"></script>
-  <script src="scripts/config/routes.js"></script>
+	<!-- Controllers -->
+	<script src="scripts/controllers/SalaryController.js"></script>
 
-  <!-- Controllers -->
-  <script src="scripts/controllers/UserController.js"></script>
+	<!-- Services & Factories -->
+	<!-- <script src="scripts/factories/postFactory.js"></script> -->
 
-  <!-- Services & Factories -->
-  <!-- <script src="scripts/factories/postFactory.js"></script> -->
-
-  <!-- Live Reload -->
-  <script src="//localhost:35729/livereload.js"></script>
+	<!-- Live Reload -->
+	<script src="//localhost:35729/livereload.js"></script>
 </body>
 
 </html>

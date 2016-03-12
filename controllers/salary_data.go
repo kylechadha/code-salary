@@ -31,14 +31,41 @@ func (c *salaryDataController) SalaryDataCreate(w http.ResponseWriter, r *http.R
 	s := models.SalaryData{}
 	s.DateAdded = time.Now()
 
-	// Decode the JSON onto the struct.
-	json.NewDecoder(r.Body).Decode(&s)
+	// hah, err := ioutil.ReadAll(r.Body)
+	// if err != nil {
+	// 	fmt.Printf("%s", err)
+	// }
+	// fmt.Printf("%s", hah)
 
-	// Create the item via the DB Service.
-	err := c.databaseService.Create(s)
+	// Decode the JSON onto the struct.
+	err := json.NewDecoder(r.Body).Decode(&s)
 	if err != nil {
 		return err, http.StatusInternalServerError
 	}
+
+	// * Is there any validation we should do here?
+	// Create the item via the DB Service.
+	err = c.databaseService.Create(s)
+	if err != nil {
+		return err, http.StatusInternalServerError
+	}
+
+	// Get and return all the salaries after creation.
+	// * Should set the 20 here as config for the default number to show
+	ss, err := c.databaseService.FindN(20, "", false)
+	if err != nil {
+		return err, http.StatusNotFound
+	}
+
+	// Marshal the documents as JSON.
+	json, err := json.Marshal(ss)
+	if err != nil {
+		return err, http.StatusInternalServerError
+	}
+
+	// Write the JSON to the response.
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(json)
 
 	return nil, http.StatusCreated
 }

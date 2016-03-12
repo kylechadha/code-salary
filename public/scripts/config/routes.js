@@ -1,18 +1,15 @@
 (function() {
-
-  angular.module('omniaApp')
+  angular.module('coderSalaryApp')
     .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 
       $routeProvider
-        .when('/', {})
-        .when('/users', {
-          templateUrl: 'views/users-create.html',
-          controller: 'UserController'
+        .when('/', {
+          templateUrl: 'views/salary-table.html',
+          controller: 'SalaryController'
         })
         .otherwise( { redirectTo: '/' } );
 
       $locationProvider.html5Mode(true);
 
     }]);
-
 }());

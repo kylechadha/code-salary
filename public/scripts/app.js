@@ -1,3 +1,3 @@
 (function() {
-  angular.module('omniaApp', ['ngRoute'])
+  angular.module('coderSalaryApp', ['ngRoute'])
 }());

@@ -8,6 +8,7 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/fatih/color"
 	"github.com/kylechadha/code-salary/app"
 	"github.com/kylechadha/code-salary/models"
 
@@ -69,6 +70,8 @@ func NewDatabaseService(app *app.Ioc) *databaseService {
 }
 
 func (d *databaseService) Create(data models.SalaryData) error {
+
+	color.Blue("%+v", data)
 
 	// Insert the general data into table 'code_salary'.
 	result, err := d.db.Exec(`INSERT INTO code_salary (company, city, state, country, base, bonus, perks, date_added) 
@@ -173,7 +176,7 @@ func (d *databaseService) FindN(n int, sort string, asc bool) ([]models.SalaryDa
 
 	// Construct the SQL query.
 	query := fmt.Sprintf(`
-		SELECT id, company, city, state, country, base, bonus, perks, date_added, IFNULL(group_concat(DISTINCT s.stack_name SEPARATOR ' '), '')
+		SELECT id, company, city, base, bonus, perks, date_added, IFNULL(group_concat(DISTINCT s.stack_name SEPARATOR ' '), '')
 		FROM code_salary AS c
 		INNER JOIN salary_stack AS s
 		WHERE c.id = s.salarydata_id
@@ -194,7 +197,7 @@ func (d *databaseService) FindN(n int, sort string, asc bool) ([]models.SalaryDa
 	for rows.Next() {
 		var s models.SalaryData
 		var stack string
-		err := rows.Scan(&s.Id, &s.Company, &s.City, &s.State, &s.Country, &s.Base, &s.Bonus, &s.Perks, &s.DateAdded, &stack)
+		err := rows.Scan(&s.Id, &s.Company, &s.City, &s.Base, &s.Bonus, &s.Perks, &s.DateAdded, &stack)
 		if err != nil {
 			return nil, err
 		}

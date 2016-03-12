@@ -1,3 +1,16 @@
-body {
-	color: tomato;
-}
+.navbar-fresh {
+  background-color: skyblue;
+  border-radius: 0px;
+  color: #2a3542; }
+  .navbar-fresh a {
+    color: #2a3542; }
+    .navbar-fresh a:hover {
+      color: black; }
+
+.navbar-brand {
+  font-weight: 300;
+  line-height: 18px; }
+  .navbar-brand span {
+    font-size: 22px;
+    vertical-align: middle;
+    margin-bottom: 4px; }
