@@ -21,6 +21,8 @@ func NewRouter(app *app.Ioc) *mux.Router {
 	salaryData.Handle("/salaryData", appHandler(d.SalaryDataCreate)).Methods("POST")
 
 	// Static files.
+	router.PathPrefix("/fonts").Handler(restrictDir(http.FileServer(http.Dir("./public/"))))
+	router.PathPrefix("/img").Handler(restrictDir(http.FileServer(http.Dir("./public/"))))
 	router.PathPrefix("/libs").Handler(restrictDir(http.FileServer(http.Dir("./public/"))))
 	router.PathPrefix("/scripts").Handler(restrictDir(http.FileServer(http.Dir("./public/"))))
 	router.PathPrefix("/styles").Handler(restrictDir(http.FileServer(http.Dir("./public/"))))

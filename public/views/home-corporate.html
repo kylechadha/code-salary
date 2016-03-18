@@ -14,10 +14,10 @@
     <link rel="stylesheet" href="styles/lightbox.css" />
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="stylesheet" href="styles/responsive.css" />
-    <script src="scripts/vendor/modernizr.js"></script>
+    <script src="js/vendor/modernizr.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600,700%7CRaleway:400,700' rel='stylesheet' type='text/css'>
   </head>
-  <body ng-app="coderSalaryApp">
+  <body class="style-corporate">
   	<div class="loader">
 		<div class="bubblingG">
 			<span id="bubblingG_1"></span>
@@ -134,21 +134,30 @@
   	
   	</nav><!--end of navigation-->
     
-	<header class="divider-background background-parallax">
+	<section class="hero-slider slider-fullscreen">
 	
-		<div class="overlay background-dark-grey"></div>
+		<ul class="slides">
+			<li class="background-parallax">
+				<img alt="Slider Background" class="background-image" src="img/corporate1.jpg" />
+				<div class="overlay background-dark-grey"></div>
+				<div class="row slide-content animate">
+					<div class="medium-10 medium-centered columns text-center">
+						<h1 class="text-white underline">Corporate Flexibility</h1>
+						<p class="lead text-white">
+							 Pangaea is a sleek, fully responsive multi-purpose template with a ton of useful features and a distinctive minimal design. Truly a site to behold.
+						</p>
+						<a href="#more" class="button button-small button-white inner-link">Let's See More <i class="icon icon_heart"></i></a>
+						<a href="#" class="button button-small button-white button-filled">Purchase Template <i class="icon icon_star"></i></a>
+					</div>
+				</div>
+			</li>
+
+		</ul>
 	
-		<img alt="Header Background" class="background-image" src="img/hero15.jpg" />
-		
-		<div class="row">
-			<div class="medium-12 medium-centered columns text-center">
-				<h2 class="text-white underline">Our Services</h2>
-			</div>
-		</div>
+	</section><!--end of hero divider-->
 	
-	</header>
-	
-	<section><!--begin large features-->
+	<a id="more"></a>
+	<section><!--begin home features-->
 	
 		<div class="row">
 		
@@ -188,67 +197,166 @@
 				
 		</div>
 	
-	</section><!--end large features-->
+	</section><!--end home features-->
 	
-	<section class="section-large divider-background background-parallax"><!--begin feature selector-->
+	<section class="no-pad background-mid-grey">
 	
-		<div class="overlay background-dark-grey"></div>
-		<img alt="Background" class="background-image" src="img/hero13.jpg" />
+		<div class="medium-5 left divider-background section-photo">
+			<img alt="background" class="background-image" src="img/corporate2.jpg" />
+		</div>
 		
 		<div class="row">
-			<div class="medium-10 medium-centered columns text-center">
-				<div class="feature-selector-holder">
-					<ul class="feature-selector-content">
-						<li class="active" data-feature-id="1">
-							<h6 class="text-white page-title">Content Strategy</h6>
-							<p class="lead text-white">
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-							</p>
-						</li>
-					
-						<li data-feature-id="2">
-							<h6 class="text-white page-title">Marketing Consultancy</h6>
-							<p class="lead text-white">
-								Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
-							</p>
-						</li>
-					
-						<li data-feature-id="3">
-							<h6 class="text-white page-title">Service Deisgn</h6>
-							<p class="lead text-white">
-								Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-							</p>
-						</li>
-					
-						<li data-feature-id="4">
-							<h6 class="text-white page-title">Front End Development</h6>
-							<p class="lead text-white">
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-							</p>
-						</li>
-					</ul>
-					<ul class="feature-selector-tabs">
-						<li class="active" data-feature-id="1"><i class="icon icon-adjustments"></i></li>
-						<li data-feature-id="2"><i class="icon icon-trophy"></i></li>
-						<li data-feature-id="3"><i class="icon icon-telescope"></i></li>
-						<li data-feature-id="4"><i class="icon icon-download"></i></li>
-					</ul>
-				</div><!--end of feature selector holder-->
+		
+			<div class="medium-7 columns space-box-left">
+				<h6 class="page-title">About Our Company</h6>
+				<p class="lead">
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+				</p>
+				<p>
+					Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. 
+				</p>
+				<p>
+					Et harum quidem rerum facilis est et saepe eveniet ut et.
+				</p>
+				<a href="#" class="button button-small">Tell Me More <i class="icon arrow_right"></i></a>
 			</div>
+		
 		</div>
 	
-	</section><!--end of feature selector-->
 	
-	<section class="background-mid-grey"><!--begin feature breakdown-->
+	</section><!--end of about our company-->
+	
+	<section class="section-medium background-highlight"><!--begin action bar-->
 	
 		<div class="row">
 			<div class="medium-12 columns text-center">
-				<h6 class="page-title">Our Capabilities</h6>
+				<a href="#" class="action-link">All this goodness for only $15 <i class="icon icon-basket"></i></a>
 			</div>
+		</div>
+	
+	</section><!--end action bar-->
+	
+	<section class="no-pad background-mid-grey"><!--begin small portfolio section-->
+		
+		<div class="work-wrapper">
+			<figure class="medium-3">
+				<a href="#">
+					<div class="cover-wrapper">
+						<img alt="Project Cover" src="img/work1.jpg" />
+						<div class="hover-state">
+							<div class="hover-content">
+								<h6 class="text-white">Golden Scales</h6>
+								<div class="horizontal-line"></div>
+								<span class="text-white">Branding & Identity</span>
+							</div>
+						</div>
+					</div>
+				</a>
+			</figure>
+			
+			<figure class="medium-3">
+				<a href="#">
+					<div class="cover-wrapper">
+						<img alt="Project Cover" src="img/work3.jpg" />
+						<div class="hover-state">
+							<div class="hover-content">
+								<h6 class="text-white">iPad Interface</h6>
+								<div class="horizontal-line"></div>
+								<span class="text-white">Graphic Design</span>
+							</div>
+						</div>
+					</div>
+				</a>
+			</figure>
+			
+			<figure class="medium-3">
+				<a href="#">
+					<div class="cover-wrapper">
+						<img alt="Project Cover" src="img/work6.jpg" />
+						<div class="hover-state">
+							<div class="hover-content">
+								<h6 class="text-white">Flat Icon Set</h6>
+								<div class="horizontal-line"></div>
+								<span class="text-white">Photography</span>
+							</div>
+						</div>
+					</div>
+				</a>
+			</figure>
+			
+			<figure class="medium-3">
+				<a href="#">
+					<div class="cover-wrapper">
+						<img alt="Project Cover" src="img/work4.jpg" />
+						<div class="hover-state">
+							<div class="hover-content">
+								<h6 class="text-white">Atticus Blog</h6>
+								<div class="horizontal-line"></div>
+								<span class="text-white">Branding & Identity</span>
+							</div>
+						</div>
+					</div>
+				</a>
+			</figure>
+			
+			
+		</div>
+	
+	</section><!--end of small portfolio-->
+	
+	<section class="background-mid-grey section-medium"><!--begin stats-->
+	
+		<div class="row">
+			<div class="medium-3 columns">
+				<div class="stat">
+					<div class="count">
+						<i class="icon icon-profile-male"></i><span>24</span>
+					</div>
+					<span class="title">Team Members</span>
+				</div>
+			</div><!--end of individual stat-->
+			
+			<div class="medium-3 columns">
+				<div class="stat">
+					<div class="count">
+						<i class="icon icon-genius rotate"></i><span>12</span>
+					</div>
+					<span class="title">Global Offices</span>
+				</div>
+			</div><!--end of individual stat-->
+			
+			<div class="medium-3 columns">
+				<div class="stat">
+					<div class="count">
+						<i class="icon icon-lightbulb"></i><span>83</span>
+					</div>
+					<span class="title">Launched Projects</span>
+				</div>
+			</div><!--end of individual stat-->
+			
+			<div class="medium-3 columns">
+				<div class="stat">
+					<div class="count">
+						<i class="icon icon-wine"></i><span>17</span>
+					</div>
+					<span class="title">Bottles Per Week</span>
+				</div>
+			</div><!--end of individual stat-->
+		</div>
+	
+	</section><!--end of stats-->
+	
+	<section class="no-pad">
+	
+		<div class="medium-5 right divider-background section-photo">
+			<img alt="background" class="background-image" src="img/corporate3.jpg" />
 		</div>
 		
 		<div class="row">
-			<div class="medium-4 columns">
+		
+			<div class="medium-7 columns space-box-right">
+				<h6 class="page-title">Our Services</h6>
+
 				<div class="feature-small">
 					<div class="left">
 						<i class="icon icon-desktop"></i>
@@ -261,7 +369,7 @@
 						</p>
 					</div>
 				</div><!--end of individal small feature-->
-				
+			
 				<div class="feature-small">
 					<div class="left">
 						<i class="icon icon-tools-2"></i>
@@ -274,11 +382,6 @@
 						</p>
 					</div>
 				</div><!--end of individal small feature-->
-				
-				
-			</div>
-			
-			<div class="medium-4 columns">
 			
 				<div class="feature-small">
 					<div class="left">
@@ -292,64 +395,13 @@
 						</p>
 					</div>
 				</div><!--end of individal small feature-->
-				
-				<div class="feature-small">
-					<div class="left">
-						<i class="icon icon-grid"></i>
-					</div>
-					<div class="right">
-						<h6>Built On Foundation</h6>
-						<div class="horizontal-line"></div>
-						<p>
-							At vero eos et accusamus et iusto odio dignissimos ducimus qui praesentium voluptatum 
-						</p>
-					</div>
-				</div><!--end of individal small feature-->
-			
+	
 			</div>
-			
-			<div class="medium-4 columns">
-				<div class="feature-small">
-					<div class="left">
-						<i class="icon icon-document"></i>
-					</div>
-					<div class="right">
-						<h6>Fully Documented</h6>
-						<div class="horizontal-line"></div>
-						<p>
-							At vero eos et accusamus et iusto odio dignissimos ducimus qui praesentium voluptatum 
-						</p>
-					</div>
-				</div><!--end of individal small feature-->
-				
-				<div class="feature-small">
-					<div class="left">
-						<i class="icon icon-toolbox"></i>
-					</div>
-					<div class="right">
-						<h6>Cool Portfolio</h6>
-						<div class="horizontal-line"></div>
-						<p>
-							At vero eos et accusamus et iusto odio dignissimos ducimus qui praesentium voluptatum 
-						</p>
-					</div>
-				</div><!--end of individal small feature-->
-				
-				
-			</div>
+		
 		</div>
 	
-	</section><!--end feature breakdown-->
 	
-	<section class="section-medium"><!--begin action bar-->
-	
-		<div class="row">
-			<div class="medium-12 columns text-center">
-				<a href="#" class="action-link">All this goodness for only $15 <i class="icon icon-basket"></i></a>
-			</div>
-		</div>
-	
-	</section><!--end action bar-->
+	</section><!--end of services-->
 	
 	<footer class="dark">
 		
@@ -415,23 +467,20 @@
 		
 	</footer>
     
-    <script src="libs/angular/angular.min.js"></script>
-    <script src="libs/angular-route/angular-route.min.js"></script>
-    <script src="libs/jquery/dist/jquery.min.js"></script>
-
-    <!-- To Do: Can move some of these to the bower flow -->
-    <script src="scripts/vendor/foundation.min.js"></script>
-    <script src="scripts/vendor/jquery.flexslider-min.js"></script>
-    <script src="scripts/vendor/smooth-scroll.js"></script>
-    <script src="scripts/vendor/isotope.pkgd.min.js"></script>
-    <script src="scripts/vendor/inview.js"></script>
-    <script src="scripts/vendor/skrollr.min.js"></script>
-    <script src="scripts/vendor/spectragram.js"></script>
-    <script src="scripts/vendor/lightbox.min.js"></script>
-    <script src="scripts/scripts.js"></script>
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script src="js/jquery.flexslider-min.js"></script>
+    <script src="js/smooth-scroll.js"></script>
+    <script src="js/isotope.pkgd.min.js"></script>
+    <script src="js/inview.js"></script>
+    <script src="js/skrollr.min.js"></script>
+    <script src="js/spectragram.js"></script>
+    <script src="js/lightbox.min.js"></script>
+    <script src="js/scripts.js"></script>
     <script>
       $(document).foundation();
     </script>
   </body>
 
+<!-- home-corporate.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Mar 2016 12:17:32 GMT -->
 </html>
