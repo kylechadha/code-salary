@@ -17,7 +17,7 @@ vertical-align: middle;
 width: 10px;
 height: 10px;
 margin: 25px auto;
-background: #454545;
+background: #00bcdf;
 -moz-border-radius: 50px;
 -moz-animation: bubblingG 0.9s infinite alternate;
 -webkit-border-radius: 50px;
@@ -58,7 +58,7 @@ animation-delay: 0.54s;
 0% {
 width: 10px;
 height: 10px;
-background-color:#454545;
+background-color:#00bcdf;
 -moz-transform: translateY(0);
 }
 
@@ -75,7 +75,7 @@ background-color:#FFFFFF;
 0% {
 width: 10px;
 height: 10px;
-background-color:#454545;
+background-color:#00bcdf;
 -webkit-transform: translateY(0);
 }
 
@@ -92,7 +92,7 @@ background-color:#FFFFFF;
 0% {
 width: 10px;
 height: 10px;
-background-color:#454545;
+background-color:#00bcdf;
 -ms-transform: translateY(0);
 }
 
@@ -109,7 +109,7 @@ background-color:#FFFFFF;
 0% {
 width: 10px;
 height: 10px;
-background-color:#454545;
+background-color:#00bcdf;
 -o-transform: translateY(0);
 }
 
@@ -126,7 +126,7 @@ background-color:#FFFFFF;
 0% {
 width: 10px;
 height: 10px;
-background-color:#454545;
+background-color:#00bcdf;
 transform: translateY(0);
 }
 

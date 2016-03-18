@@ -1,23 +1,92 @@
-// Bootstrap Overrides
-// -----------------------------------
-.navbar-fresh {
-  background-color: skyblue;
-  border-radius: 0px;
-  color: #2a3542;
-  a {
-    color: #2a3542;
-    &:hover {
-      color: black;
-    }
+
+// Always ask yourself -- are the class names conflicting with anything that already exists?
+
+.logo-main {
+  margin-top: -12px;
+  display: flex;
+  .logo-title {
+    color: white !important;
+    text-transform: none;
+  }
+  .icon {
+    font-size: 36px;
+    line-height: 56px;
+    color: white;
+    padding-right: 8px;
   }
 }
 
-.navbar-brand {
-  font-weight: 300;
-  line-height: 18px;
-  span {
-    font-size: 22px;
-    vertical-align: middle;
-    margin-bottom: 4px;
+header {
+  .header-text {
+    margin-top: -30px;
+    margin-bottom: 30px;
   }
+}
+
+.rw-sentence{
+  margin: 0;
+  // text-align: left;
+  // text-shadow: 1px 1px 1px rgba(255,255,255,0.8);
+  span{
+    // color: tomato;
+    white-space: nowrap;
+    // font-size: 200%;
+    // font-weight: normal;
+  }
+}
+
+.rw-words{
+  display: inline-block;
+  text-indent: 10px;
+  margin-bottom: -7px;
+  span{
+    top: 0;
+    position: absolute;
+    opacity: 0;
+    overflow: hidden;
+    width: 100%;
+    color: tomato;
+  }
+  span:nth-child(1) { 
+  }
+  span:nth-child(2) { 
+    animation-delay: 3s; 
+  }
+  span:nth-child(3) { 
+    animation-delay: 6s; 
+  }
+  span:nth-child(4) { 
+    animation-delay: 9s; 
+  }
+  span:nth-child(5) { 
+    animation-delay: 12s; 
+  }
+  span:nth-child(6) {  
+    animation-delay: 15s; 
+  }
+}
+
+.rw-words-1 {
+  width: 180px;
+  span{
+    left: -95px;
+  animation: rotateWordsFirst 18s linear infinite 0s;
+  }
+}
+
+.rw-words-2 {
+  width: 200px;
+  span{
+    left: 286px;
+  animation: rotateWordsFirst 18s linear infinite 0s;
+  }
+}
+
+@keyframes rotateWordsFirst {
+    0% { opacity: 1; animation-timing-function: ease-in; height: 0px; }
+    8% { opacity: 1; height: 60px; }
+    19% { opacity: 1; height: 60px; }
+  20% { opacity: 0.3; height: 30px; }
+  22% { opacity: 0; height: 0px; }
+    100% { opacity: 0; }
 }
