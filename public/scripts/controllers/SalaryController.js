@@ -2,6 +2,8 @@
 	var SalaryController = function($scope, $http) {
 		$scope.salaries = [];
 		$scope.stack = [];
+		$scope.sortType;
+		$scope.sortReverse;
 
 		// When landing on the page, get all the salaries and show them.
 		$http.get('/api/salaryData')

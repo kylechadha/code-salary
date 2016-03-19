@@ -73,8 +73,26 @@ header .header-text {
   100% {
     opacity: 0; } }
 
+.search {
+  margin-bottom: 1rem; }
+  .search input {
+    display: inline;
+    text-align: center;
+    border: 2px solid #454545; }
+  .search .search-icon {
+    position: absolute;
+    display: inline;
+    background: #454545;
+    color: #fff;
+    height: 40px;
+    width: 40px; }
+    .search .search-icon i {
+      font-size: 27px;
+      line-height: 40px; }
+
 .salary-data {
-  margin: 1rem; }
+  margin: 1rem;
+  margin-top: 0; }
   .salary-data .stack-row {
     display: inline;
     padding: 5px; }
@@ -119,13 +137,30 @@ table tfoot tr {
   background: transparent; }
 
 table thead th,
-table thead td,
+table thead td {
+  color: white;
+  padding: 0.5rem 0.625rem 0.625rem;
+  text-align: left; }
+  table thead th a,
+  table thead td a {
+    color: white; }
+    table thead th a:hover,
+    table thead td a:hover {
+      color: #00bcdf; }
+    table thead th a:focus,
+    table thead td a:focus {
+      color: white; }
+
 table tfoot th,
 table tfoot td {
   color: white;
-  padding: 0.5rem 0.625rem 0.625rem;
-  font-weight: bold;
-  text-align: left; }
+  padding: 0.5rem 0.625rem 0.625rem; }
+  table tfoot th a,
+  table tfoot td a {
+    color: #00bcdf; }
+    table tfoot th a:hover,
+    table tfoot td a:hover {
+      color: darkgrey; }
 
 table tbody tr:nth-child(even) {
   background-color: #f9f9f9; }

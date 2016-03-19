@@ -8,7 +8,6 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/fatih/color"
 	"github.com/kylechadha/code-salary/app"
 	"github.com/kylechadha/code-salary/models"
 
@@ -70,8 +69,6 @@ func NewDatabaseService(app *app.Ioc) *databaseService {
 }
 
 func (d *databaseService) Create(data models.SalaryData) error {
-
-	color.Blue("%+v", data)
 
 	// Insert the general data into table 'code_salary'.
 	result, err := d.db.Exec(`INSERT INTO code_salary (company, city, state, country, base, bonus, perks, date_added) 

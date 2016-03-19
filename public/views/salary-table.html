@@ -1,51 +1,78 @@
-<table cellspacing="0">
-  <thead>
-    <tr>
-      <th>Company</th>
-      <th>Location</th>
-      <th>Stack</th>
-      <th>Title</th>
-      <th>Base</th>
-      <th>Bonus</th>
-      <th>Perks</th>
-    </tr>
-  </thead>
-  <tbody>
-      <tr ng-repeat="salary in salaries">
-        <td>{{ salary.company }}</td>
-        <td>{{ salary.city }}</td>
-        <td class="stack-row"><div ng-repeat="stack in salary.stack" class="stack-item">{{ stack }}</div></td>
-        <td>{{ salary.title }}</td>
-        <td>{{ salary.base | currency:undefined:0 }}</td>
-        <td>{{ salary.bonus }}</td>
-        <td class="perks-row"><div ng-if="salary.perks" class="perks-item">Available</div></td>
+<div class="salary-data">
+
+  <div class="search text-center">
+      <input type="text" placeholder="company, location, stack, etc." ng-model="searchSalary">
+      <div class="search-icon">
+        <i class="icon icon-magnifying-glass"></i>
+      </div>
+  </div>
+
+  <table cellspacing="0">
+    <thead>
+      <tr>
+        <th>
+          <a href="#" ng-click="sortType = 'company'; sortReverse = !sortReverse">
+            Company<i ng-show="sortType == 'company' && !sortReverse" class="arrow_carrot-down"></i><i ng-show="sortType == 'company' && sortReverse" class="arrow_carrot-up"></i>
+          </a>
+        </th>
+        <th>
+          <a href="#" ng-click="sortType = 'city'; sortReverse = !sortReverse">
+            Location<i ng-show="sortType == 'city' && !sortReverse" class="arrow_carrot-down"></i><i ng-show="sortType == 'city' && sortReverse" class="arrow_carrot-up"></i>
+          </a>
+        </th>
+        <th>Stack</th>
+        <th>Title</th>
+        <th>
+          <a href="#" ng-click="sortType = 'base'; sortReverse = !sortReverse">
+            Base<i ng-show="sortType == 'base' && !sortReverse" class="arrow_carrot-down"></i><i ng-show="sortType == 'base' && sortReverse" class="arrow_carrot-up"></i>
+          </a>
+        </th>
+        <th>Bonus</th>
+        <th>Perks</th>
       </tr>
-      <tr ng-repeat="salary in salaries">
-        <td>{{ salary.company }}</td>
-        <td>{{ salary.city }}</td>
-        <td class="stack-row"><div ng-repeat="stack in salary.stack" class="stack-item">{{ stack }}</div></td>
-        <td>{{ salary.title }}</td>
-        <td>{{ salary.base | currency:undefined:0 }}</td>
-        <td>{{ salary.bonus }}</td>
-        <td class="perks-row"><div ng-if="salary.perks" class="perks-item">Available</div></td>
+    </thead>
+    <tbody>
+        <tr ng-repeat="salary in salaries | orderBy: sortType:sortReverse | filter:searchSalary">
+          <td>{{ salary.company }}</td>
+          <td>{{ salary.city }}</td>
+          <td class="stack-row"><div ng-repeat="stack in salary.stack" class="stack-item">{{ stack }}</div></td>
+          <td>{{ salary.title }}</td>
+          <td>{{ salary.base | currency:undefined:0 }}</td>
+          <td>{{ salary.bonus }}</td>
+          <td class="perks-row"><div ng-if="salary.perks" class="perks-item">Available</div></td>
+        </tr>
+        <tr ng-repeat="salary in salaries | orderBy: sortType:sortReverse | filter:searchSalary">
+          <td>{{ salary.company }}</td>
+          <td>{{ salary.city }}</td>
+          <td class="stack-row"><div ng-repeat="stack in salary.stack" class="stack-item">{{ stack }}</div></td>
+          <td>{{ salary.title }}</td>
+          <td>{{ salary.base | currency:undefined:0 }}</td>
+          <td>{{ salary.bonus }}</td>
+          <td class="perks-row"><div ng-if="salary.perks" class="perks-item">Available</div></td>
+        </tr>
+        <tr ng-repeat="salary in salaries | orderBy: sortType:sortReverse | filter:searchSalary">
+          <td>{{ salary.company }}</td>
+          <td>{{ salary.city }}</td>
+          <td class="stack-row"><div ng-repeat="stack in salary.stack" class="stack-item">{{ stack }}</div></td>
+          <td>{{ salary.title }}</td>
+          <td>{{ salary.base | currency:undefined:0 }}</td>
+          <td>{{ salary.bonus }}</td>
+          <td class="perks-row"><div ng-if="salary.perks" class="perks-item">Available</div></td>
+        </tr>
+        <tr ng-repeat="salary in salaries | orderBy: sortType:sortReverse | filter:searchSalary">
+          <td>{{ salary.company }}</td>
+          <td>{{ salary.city }}</td>
+          <td class="stack-row"><div ng-repeat="stack in salary.stack" class="stack-item">{{ stack }}</div></td>
+          <td>{{ salary.title }}</td>
+          <td>{{ salary.base | currency:undefined:0 }}</td>
+          <td>{{ salary.bonus }}</td>
+          <td class="perks-row"><div ng-if="salary.perks" class="perks-item">Available</div></td>
+        </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="7" class="text-center">...and {{ salaries.length + 50 }} more. <a href="#">Share your salary info</a> to see the full list.</td>
       </tr>
-      <tr ng-repeat="salary in salaries">
-        <td>{{ salary.company }}</td>
-        <td>{{ salary.city }}</td>
-        <td class="stack-row"><div ng-repeat="stack in salary.stack" class="stack-item">{{ stack }}</div></td>
-        <td>{{ salary.title }}</td>
-        <td>{{ salary.base | currency:undefined:0 }}</td>
-        <td>{{ salary.bonus }}</td>
-        <td class="perks-row"><div ng-if="salary.perks" class="perks-item">Available</div></td>
-      </tr>
-      <tr ng-repeat="salary in salaries">
-        <td>{{ salary.company }}</td>
-        <td>{{ salary.city }}</td>
-        <td class="stack-row"><div ng-repeat="stack in salary.stack" class="stack-item">{{ stack }}</div></td>
-        <td>{{ salary.title }}</td>
-        <td>{{ salary.base | currency:undefined:0 }}</td>
-        <td>{{ salary.bonus }}</td>
-        <td class="perks-row"><div ng-if="salary.perks" class="perks-item">Available</div></td>
-      </tr>
-  </tbody>
-</table>
+    </tfoot>
+  </table>
+</div>
