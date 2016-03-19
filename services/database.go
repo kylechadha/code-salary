@@ -176,7 +176,7 @@ func (d *databaseService) FindN(n int, sort string, asc bool) ([]models.SalaryDa
 
 	// Construct the SQL query.
 	query := fmt.Sprintf(`
-		SELECT id, company, city, base, bonus, perks, date_added, IFNULL(group_concat(DISTINCT s.stack_name SEPARATOR ' '), '')
+		SELECT id, company, city, base, bonus, perks, date_added, IFNULL(group_concat(DISTINCT s.stack_name SEPARATOR ','), '')
 		FROM code_salary AS c
 		INNER JOIN salary_stack AS s
 		WHERE c.id = s.salarydata_id
@@ -203,7 +203,7 @@ func (d *databaseService) FindN(n int, sort string, asc bool) ([]models.SalaryDa
 		}
 
 		if stack != "" {
-			s.Stack = strings.Split(stack, " ")
+			s.Stack = strings.Split(stack, ",")
 		}
 
 		ss = append(ss, s)

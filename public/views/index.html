@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/">
     <title>CodeSalary</title>
     <link rel="stylesheet" href="styles/loader.css" />
     <link rel="stylesheet" href="styles/foundation.css" />
@@ -91,27 +92,59 @@
 	
 	</header>
 	
-	<section><!--begin large features-->
-	
+	<section class="section-medium salary-data"><!--begin Angular View-->
 		<div class="row">
-		
-		<!-- Angular Views -->
-		<div ng-view></div>
-			
+			<div ng-view></div>
 		</div>
+	</section><!--end Angular View-->
 	
-	</section><!--end large features-->
-	
-	
-	<section class="section-medium"><!--begin action bar-->
+	<section class="background-mid-grey section-medium"><!--begin stats-->
 	
 		<div class="row">
 			<div class="medium-12 columns text-center">
-				<a href="#" class="action-link">Sharing is Caring<i class="icon icon-basket"></i></a>
+				<h6 class="page-title">Stat Counters</h6>
 			</div>
 		</div>
 	
-	</section><!--end action bar-->
+		<div class="row">
+			<div class="medium-3 columns">
+				<div class="stat">
+					<div class="count">
+						<i class="icon icon-profile-male"></i><span>246</span>
+					</div>
+					<span class="title">Salaries</span>
+				</div>
+			</div><!--end of individual stat-->
+			
+			<div class="medium-3 columns">
+				<div class="stat">
+					<div class="count">
+						<i class="icon icon-genius rotate"></i><span>12</span>
+					</div>
+					<span class="title">Cities</span>
+				</div>
+			</div><!--end of individual stat-->
+			
+			<div class="medium-3 columns">
+				<div class="stat">
+					<div class="count">
+						<i class="icon icon-lightbulb"></i><span>83</span>
+					</div>
+					<span class="title">Companies</span>
+				</div>
+			</div><!--end of individual stat-->
+			
+			<div class="medium-3 columns">
+				<div class="stat">
+					<div class="count">
+						<i class="icon icon-wine"></i><span>4</span>
+					</div>
+					<span class="title">Made Up Stats</span>
+				</div>
+			</div><!--end of individual stat-->
+		</div>
+	
+	</section><!--end of stats-->
 	
 	<footer class="dark">
 		
